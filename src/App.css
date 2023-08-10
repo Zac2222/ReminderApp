@@ -1,0 +1,11 @@
+.App{
+  background-color: #5454b1;
+  padding: 10px;
+}
+.content{
+  color: blueviolet;
+}
+li.list-group-item{
+  background-color: black;
+}
+
