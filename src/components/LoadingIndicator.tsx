@@ -1,37 +1,36 @@
-import React, { useEffect, useState } from 'react'
-
+import React, { useState, useEffect } from 'react';
+import ReminderServices from '../services/reminder';
+import Reminder from '../models/reminders';
 
 const LoadingIndicator = () => {
-    const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
+  const [data, setData] = useState<Reminder[]>([]);
+  const [error, setError] = useState('');
 
-    useEffect(() => {
-        // Start loading
-        setIsLoading(true);
 
-        // Simulate an API call
-        fetch('https://jsonplaceholder.typicode.com/')
-            .then(response => response.json())
-            .then(apiData => {
-                setData(apiData);
-            })
-            .catch(error => {
-                console.error('Error fetching API:', error);
-            })
-            .finally(() => {
-                setIsLoading(false);
-            });
-    }, []);
 
-    return (
-        <div>
-            {isLoading && <div className='spinner-border'></div>}
-        </div>
-    )
+  useEffect(() => {
+    setIsLoading(true);
 
-}
+    ReminderServices.getReminders() //calls ouur apiu
+      .then(response => {
+        setData(response);
+        setError(''); //clears the error message if it was already on screen and got fixed
+      })
+      .catch(error => {
+        setError(error.message); //handles the errors
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, []);
 
-export default LoadingIndicator
-function setData(apiData: any) {
-    throw new Error('Function not implemented.');
-}
+  return (
+    <div className='d-flex justify-content-center'>
+      {error && <p className='text-danger'>The api failed to load: {error}</p>}
+      {isLoading && <div className='spinner-border'></div>}
+    </div>
+  );
+};
 
+export default LoadingIndicator;

@@ -1,6 +1,7 @@
 .App{
   background-color: #5454b1;
   padding: 10px;
+  height: 100vh;
 }
 .content{
   color: blueviolet;
@@ -8,4 +9,10 @@
 li.list-group-item{
   background-color: black;
 }
+
+input{
+  width: 300px;
+}
+
+
 
