@@ -7,7 +7,7 @@ import Reminder from "../models/reminders";
 class ReminderServices{
     
     http = axios.create({
-        baseURL: 'https://jsonplaceholder.typicode.coms/'
+        baseURL: 'https://jsonplaceholder.typicode.com/'
     })
     async getReminders(){
         const response = await this.http.get<Reminder[]>('todos'); //todos is taken from endpoint website we used, also the url above is the website
